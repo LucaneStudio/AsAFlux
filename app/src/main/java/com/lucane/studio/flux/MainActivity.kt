@@ -1,47 +1,48 @@
 package com.lucane.studio.flux
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.lucane.studio.flux.ui.theme.AsAFluxTheme
+import androidx.compose.ui.unit.dp
+import com.lucane.studio.flux.core.ui.buttons.PrimaryButton
+import com.lucane.studio.flux.core.ui.utils.ButtonSize
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT
+            )
+        )
+
+        // Déplace requestedOrientation ICI, avant setContent
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         setContent {
-            AsAFluxTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            MainScreen()
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MainScreen(){
+    Column(Modifier.padding(start = 80.dp)) {
+        PrimaryButton(
+            label = "Début des règles"
+        ) { }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AsAFluxTheme {
-        Greeting("Android")
+        PrimaryButton(
+            label = "Valider",
+            buttonSize = ButtonSize.XS
+        ) { }
     }
 }

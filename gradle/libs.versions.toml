@@ -1,21 +1,21 @@
 [versions]
-agp = "8.9.1"
-kotlin = "2.0.21"
-coreKtx = "1.17.0"
+agp = "8.7.3"
+kotlin = "2.3.10"  # ✅ Dernière version stable
+coreKtx = "1.15.0"
 junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
-lifecycleRuntimeKtx = "2.10.0"
-activityCompose = "1.12.2"
-composeBom = "2024.09.00"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2026.01.01"  # ✅ Dernière version stable
 
 # --- Ajouts AsAFlux ---
-navigation = "2.9.6"
+navigation = "2.9.7"
 room = "2.8.4"
 datastore = "1.2.0"
-coroutines = "1.10.2"
+coroutines = "1.10.2"  # ✅ Dernière version stable
 serializationJson = "1.7.3"
-ksp = "2.0.21-1.0.26"
+ksp = "2.3.5"  # ✅ KSP a changé son versioning - ce n'est plus lié à Kotlin
 
 kizitonwoseCalendar = "2.10.0"
 haze = "1.7.1"

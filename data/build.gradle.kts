@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.asaflux.data"
+    namespace = "com.lucane.studio.flux.data"
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 31
+        minSdk = 33
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -18,28 +18,28 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+
+    // ✅ Nouvelle syntaxe Kotlin 2.x
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
 }
 
 dependencies {
     implementation(project(":core"))
 
-    // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    // DataStore
     implementation(libs.androidx.datastore.preferences)
 
-    // JSON + coroutines (backup)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
 }
 
-// (Optionnel mais recommandé) : exporter les schémas Room pour les migrations
 ksp {
     arg("room.schemaLocation", "$projectDir/schemas")
     arg("room.incremental", "true")

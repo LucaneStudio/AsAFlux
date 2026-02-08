@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "com.asaflux"
+    namespace = "com.lucane.studio.flux"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.asaflux"
-        minSdk = 31
+        applicationId = "com.lucane.studio.flux"
+        minSdk = 33
         targetSdk = 35
 
         versionCode = 1
@@ -27,8 +27,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+
+    // ✅ Nouvelle syntaxe Kotlin 2.x - utilise compilerOptions au lieu de kotlinOptions
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
 
     packaging {
@@ -46,7 +50,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":feature"))
 
-    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -54,6 +57,5 @@ dependencies {
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
 
-    // Navigation (app gère le graphe)
     implementation(libs.androidx.navigation.compose)
 }

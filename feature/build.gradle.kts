@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.asaflux.feature"
+    namespace = "com.lucane.studio.flux.feature"
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 31
+        minSdk = 33
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -21,8 +21,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+
+    // ✅ Nouvelle syntaxe Kotlin 2.x
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
 }
 
@@ -37,13 +41,10 @@ dependencies {
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
 
-    // ViewModel Compose (souvent utile dans les features)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    // Kizitonwose Calendar
     implementation(libs.kizitonwose.calendar.compose)
 
-    // Blur (Haze)
-    implementation(libs.haze)
-    implementation(libs.haze.materials.android)
+    //implementation(libs.haze)
+    //implementation(libs.haze.materials.android)
 }
