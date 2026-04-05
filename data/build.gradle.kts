@@ -2,15 +2,16 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.lucane.studio.flux.data"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
-        minSdk = 33
+        minSdk = 31
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -19,7 +20,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    // ✅ Nouvelle syntaxe Kotlin 2.x
     kotlin {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
@@ -36,6 +36,10 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
 
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
 }

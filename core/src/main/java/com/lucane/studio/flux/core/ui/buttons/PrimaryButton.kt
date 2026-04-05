@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import com.lucane.studio.flux.core.theme.AsADefault
 import com.lucane.studio.flux.core.ui.utils.ButtonSize
 import com.lucane.studio.flux.core.ui.utils.IconGravity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.theme.AsAButtonColors
@@ -28,10 +28,10 @@ fun PrimaryButton(
     onClick: () -> Unit
 ) {
     var modifierResized: Modifier = modifier
-    var textStyleResized = TextStyle.AsADefault
-    var spacingResized = 0.dp
-    var shapeResized = RoundedCornerShape(0.dp)
-    var paddingValuesResized = PaddingValues(0.dp)
+    var textStyleResized: TextStyle
+    var spacingResized: Dp
+    var shapeResized: RoundedCornerShape
+    var paddingValuesResized: PaddingValues
 
     when (buttonSize){
         ButtonSize.XS -> {
@@ -57,9 +57,10 @@ fun PrimaryButton(
     }
 
     ButtonBase(
-        modifier = modifier,
+        modifier = modifierResized,
         label = label.lowercase(),
         icon = icon,
+        textStyle = textStyleResized,
         iconGravity = iconGravity,
         enable = enable,
         shape = shapeResized,

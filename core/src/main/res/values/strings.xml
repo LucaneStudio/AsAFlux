@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calendar_start_period">start period</string>
+    <string name="calendar_end_period">end period</string>
+    <string name="calendar_countdown_label">days remaining</string>
+    <string name="tray_in">tray in</string>
+    <string name="tray_out">tray out</string>
+    <string name="calendar_toggle_ovulation">Show ovulation day</string>
+    <string name="calendar_toggle_fertile">Show fertile window</string>
+    <string name="daily_sensation">Sensation of the day</string>
+    <string name="cycles_entered">%1$s cycles entered</string>
+    <string name="my_cycles">My cycles</string>
+    <string name="nav_home">home</string>
+    <string name="nav_calendar">calendar</string>
+    <string name="nav_details">details</string>
+    <string name="nav_notes">notes</string>
+    <!-- Week day headers — Mon to Sun -->
+    <string-array name="calendar_week_days">
+        <item>mon.</item>
+        <item>tue.</item>
+        <item>wed.</item>
+        <item>thu.</item>
+        <item>fri.</item>
+        <item>sat.</item>
+        <item>sun.</item>
+    </string-array>
+</resources>

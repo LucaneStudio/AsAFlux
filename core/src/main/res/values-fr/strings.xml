@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calendar_start_period">début des saignements</string>
+    <string name="calendar_end_period">fin des saignements</string>
+    <string name="calendar_countdown_label">jours restants</string>
+    <string name="calendar_toggle_ovulation">Afficher le jour d\'ovulation</string>
+    <string name="calendar_toggle_fertile">Afficher la période de fertilité</string>
+    <string name="tray_in">importer</string>
+    <string name="tray_out">exporter</string>
+    <string name="daily_sensation">Sensation du jour</string>
+    <string name="cycles_entered">%1$s cycles saisis</string>
+    <string name="my_cycles">Mes cycles</string>
+    <string name="nav_home">accueil</string>
+    <string name="nav_calendar">calendrier</string>
+    <string name="nav_details">détails</string>
+    <string name="nav_notes">notes</string>
+    <string-array name="calendar_week_days">
+        <item>lun.</item>
+        <item>mar.</item>
+        <item>mer.</item>
+        <item>jeu.</item>
+        <item>ven.</item>
+        <item>sam.</item>
+        <item>dim.</item>
+    </string-array>
+</resources>

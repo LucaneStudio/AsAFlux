@@ -2,14 +2,16 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "com.lucane.studio.flux.feature"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
-        minSdk = 33
+        minSdk = 31
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -32,7 +34,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
-
+    implementation(project(":data"))
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -40,11 +42,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
-
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
     implementation(libs.kizitonwose.calendar.compose)
-
-    //implementation(libs.haze)
-    //implementation(libs.haze.materials.android)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.haze)
+    implementation(libs.haze.materials.android)
 }

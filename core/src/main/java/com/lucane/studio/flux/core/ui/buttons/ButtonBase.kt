@@ -56,7 +56,7 @@ fun ButtonBase(
         onClick = onClick
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxHeight(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(spacing)
         ) {

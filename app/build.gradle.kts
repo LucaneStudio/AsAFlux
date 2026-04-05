@@ -2,15 +2,17 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "com.lucane.studio.flux"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.lucane.studio.flux"
-        minSdk = 33
+        minSdk = 31
         targetSdk = 35
 
         versionCode = 1
@@ -56,6 +58,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
-
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.haze)
+    implementation(libs.haze.materials.android)
 }

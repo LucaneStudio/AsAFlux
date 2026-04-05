@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.lucane.studio.flux.core"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
-        minSdk = 33
+        minSdk = 31
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -22,7 +22,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    // ✅ Nouvelle syntaxe Kotlin 2.x
     kotlin {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
@@ -41,6 +40,6 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
 
-    //implementation(libs.haze)
-    //implementation(libs.haze.materials.android)
+    implementation(libs.haze)
+    implementation(libs.haze.materials.android)
 }

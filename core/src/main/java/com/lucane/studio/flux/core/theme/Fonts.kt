@@ -9,12 +9,12 @@ import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.R
 
 object AsAFont{
-    val extraLight = FontFamily(Font(R.font.inter, weight = FontWeight.ExtraLight))
-    val light = FontFamily(Font(R.font.inter, weight = FontWeight.Light))
-    val regular = FontFamily(Font(R.font.inter, weight = FontWeight.Normal))
-    val medium = FontFamily(Font(R.font.inter, weight = FontWeight.Medium))
-    val semiBold = FontFamily(Font(R.font.inter, weight = FontWeight.SemiBold))
-    val bold = FontFamily(Font(R.font.inter, weight = FontWeight.Bold))
+    val extraLight = FontFamily(Font(R.font.inter_extralight, weight = FontWeight.ExtraLight))
+    val light = FontFamily(Font(R.font.inter_light, weight = FontWeight.Light))
+    val regular = FontFamily(Font(R.font.inter_regular, weight = FontWeight.Normal))
+    val medium = FontFamily(Font(R.font.inter_medium, weight = FontWeight.Medium))
+    val semiBold = FontFamily(Font(R.font.inter_semibold, weight = FontWeight.SemiBold))
+    val bold = FontFamily(Font(R.font.inter_bold, weight = FontWeight.Bold))
 }
 
 val TextStyle.Companion.AsADefault: TextStyle
