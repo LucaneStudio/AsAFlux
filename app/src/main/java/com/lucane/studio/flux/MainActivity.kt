@@ -4,31 +4,27 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.lucane.studio.flux.app.MainViewModel
 import com.lucane.studio.flux.core.utils.HazeController
 import com.lucane.studio.flux.core.utils.LocalHazeController
-import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.ui.ApplicationBase
-import com.lucane.studio.flux.core.ui.cards.CardWithHeader
-import com.lucane.studio.flux.core.ui.utils.HeaderInfos
-import com.lucane.studio.flux.feature.calendar.presentation.screen.calendar.CalendarScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.haze.rememberHazeState
-import com.lucane.studio.flux.core.R as CoreRes
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.lucane.studio.flux.app.LocalMainViewModel
+import com.lucane.studio.flux.app.navigation.AsaFluxNavGraph
+import com.lucane.studio.flux.core.utils.ApplicationBaseViewModel
+import com.lucane.studio.flux.core.utils.LocalApplicationBaseController
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -39,6 +35,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val systemUiController = rememberSystemUiController()
             val hazeState = rememberHazeState()
+            val mainViewModel: MainViewModel = hiltViewModel()
+            val appBaseViewModel: ApplicationBaseViewModel = hiltViewModel()
+            val isOnboardingCompleted by mainViewModel.isOnboardingCompleted
+                .collectAsStateWithLifecycle()
+
 
             WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -51,58 +52,18 @@ class MainActivity : ComponentActivity() {
                 navigationBarContrastEnforced = false,
                 darkIcons = true
             )
+
             CompositionLocalProvider(
-                LocalHazeController provides HazeController(hazeState)
+                LocalHazeController provides HazeController(hazeState),
+                LocalMainViewModel provides mainViewModel,
+                LocalApplicationBaseController provides appBaseViewModel
             ) {
-                MainScreen()
-            }
-        }
-    }
-}
-
-@Composable
-fun MainScreen(){
-    ApplicationBase {
-        CalendarScreen()
-
-        CardWithHeader(
-            modifier = Modifier.fillMaxWidth(),
-            headerInfos = HeaderInfos(
-                labelRes = stringResource(CoreRes.string.daily_sensation),
-                iconRes = CoreRes.drawable.ic_chevron_end,
-                onClick = {}
-            )
-        ) { }
-
-        CardWithHeader(
-            modifier = Modifier.fillMaxWidth(),
-            headerInfos = HeaderInfos(
-                labelRes = stringResource(CoreRes.string.my_cycles),
-                iconRes = CoreRes.drawable.ic_chevron_end,
-                subLabelRes = stringResource(CoreRes.string.cycles_entered, 135),
-                onClick = {}
-            )
-        ) {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                Box(
-                    modifier = Modifier
-                        .weight(0.5f)
-                        .height(96.dp)
-                        .background(
-                            AsAColors.blueNeon.copy(0.2f),
-                            RoundedCornerShape(6.dp)
-                        )
-                )
-
-                Box(
-                    modifier = Modifier
-                        .weight(0.5f)
-                        .height(96.dp)
-                        .background(
-                            AsAColors.blueNeon.copy(0.2f),
-                            RoundedCornerShape(6.dp)
-                        )
-                )
+                ApplicationBase {
+                    when (val completed = isOnboardingCompleted) {
+                        null  -> Box(Modifier.fillMaxSize())
+                        else  -> AsaFluxNavGraph(isOnboardingCompleted = completed)
+                    }
+                }
             }
         }
     }

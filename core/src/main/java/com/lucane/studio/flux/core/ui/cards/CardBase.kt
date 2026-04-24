@@ -20,7 +20,7 @@ import dev.chrisbanes.haze.hazeEffect
 
 @Composable
 fun CardBase(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     hazeState: HazeState,
     contentAlignment: Alignment = Alignment.TopStart,
     modularButton: List<@Composable () -> Unit> = emptyList(),

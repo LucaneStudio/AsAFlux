@@ -37,9 +37,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
-
     implementation(libs.kotlinx.coroutines.android)
-
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.haze)
     implementation(libs.haze.materials.android)
 }

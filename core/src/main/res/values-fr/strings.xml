@@ -23,4 +23,59 @@
         <item>sam.</item>
         <item>dim.</item>
     </string-array>
+
+    <string name="onboarding_back">Retour</string>
+    <string name="onboarding_step_counter">%1$d/%2$d</string>
+    <string name="onboarding_date_placeholder">Sélectionner une date</string>
+    <string name="onboarding_duration_range_hint">Entre %1$d et %2$d jours</string>
+    <string name="onboarding_cta_save">Calculer et terminer →</string>
+    <string name="onboarding_cta_calculate">Calculer et terminer →</string>
+
+    <string name="onboarding_disclaimer_title">Bienvenue sur AsAFlux</string>
+    <string name="onboarding_disclaimer_subtitle">Quelques points importants avant de commencer</string>
+    <string name="onboarding_disclaimer_not_medical">Cette app &lt;b&gt;n\'est pas un dispositif médical.&lt;/b&gt; Elle ne remplace pas un avis professionnel.</string>
+    <string name="onboarding_disclaimer_predictions">Les prédictions sont des &lt;b&gt;estimations&lt;/b&gt; basées sur vos données. Elles peuvent varier.</string>
+    <string name="onboarding_disclaimer_local_only">&lt;b&gt;100% local.&lt;/b&gt; Aucune donnée ne quitte votre téléphone.</string>
+    <string name="onboarding_disclaimer_consult_pro">En cas de doute, &lt;b&gt;consultez un professionnel de santé.&lt;/b&gt;</string>
+    <string name="onboarding_disclaimer_accept">J\'ai compris, continuer →</string>
+
+    <string name="onboarding_mode_title">Configurons votre suivi</string>
+    <string name="onboarding_mode_subtitle">Choisissez la méthode qui vous convient</string>
+    <string name="onboarding_mode_quick_title">Saisie rapide</string>
+    <string name="onboarding_mode_quick_desc">Date des derniers saignements + durées habituelles</string>
+    <string name="onboarding_mode_history_title">Mon historique</string>
+    <string name="onboarding_mode_history_desc">Entrez jusqu\'à 6 cycles récents pour plus de précision</string>
+    <string name="onboarding_mode_first_cycle_title">Mes premiers cycles</string>
+    <string name="onboarding_mode_first_cycle_desc">Pas encore de cycle défini — saisissez uniquement la date de début</string>
+    <string name="onboarding_mode_skip">Passer cette étape</string>
+
+    <string name="onboarding_first_cycle_title">Mes premiers cycles</string>
+    <string name="onboarding_first_cycle_subtitle">Aucune info de cycle n\'est nécessaire pour l\'instant</string>
+    <string name="onboarding_first_cycle_date_label">Date de début de vos premiers saignements</string>
+    <string name="onboarding_first_cycle_info_defaults">L\'app utilisera les valeurs par défaut (cycle 28 j / saignements 5 j) jusqu\'à ce que vous ayez plus de données.</string>
+    <string name="onboarding_first_cycle_info_settings">Vous pourrez affiner ces durées dans les réglages à tout moment.</string>
+    <string name="onboarding_first_cycle_info_improve">Les prédictions s\'amélioreront au fil des cycles enregistrés.</string>
+    <string name="onboarding_first_cycle_cta">Confirmer et continuer →</string>
+
+    <string name="onboarding_quick_title">Vos informations</string>
+    <string name="onboarding_quick_subtitle">Ces données restent sur votre téléphone</string>
+    <string name="onboarding_quick_date_label">Date de début de vos derniers saignements</string>
+    <string name="onboarding_quick_cycle_length_label">Durée habituelle de votre cycle</string>
+    <string name="onboarding_quick_bleeding_label">Durée habituelle de vos saignements</string>
+
+    <string name="onboarding_history_title">Mes cycles récents</string>
+    <string name="onboarding_history_subtitle">Du plus ancien au plus récent. Au moins 3, jusqu\'à 6</string>
+    <string name="onboarding_history_bleeding_label">Durée habituelle de vos saignements</string>
+    <string name="onboarding_history_slot_empty">%1$d</string>
+    <string name="onboarding_history_estimated_cycle">Cycle moyen estimé : &lt;b&gt;&lt;c&gt;%1$d jours&lt;/c&gt;&lt;/b&gt; sur %2$d cycles saisis</string>
+
+    <string name="onboarding_done_title">C\'est parti !</string>
+    <string name="onboarding_done_subtitle">Votre suivi est configuré. Modifiez ces informations à tout moment dans les réglages.</string>
+    <string name="onboarding_done_cta">Ouvrir le calendrier →</string>
+
+    <string name="common_confirm">Confirmer</string>
+    <string name="common_cancel">Annuler</string>
+    <string name="common_days">jours</string>
+
+    <string name="action_tap_to_enter">Appuyer pour saisir</string>
 </resources>

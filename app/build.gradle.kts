@@ -64,4 +64,5 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.haze)
     implementation(libs.haze.materials.android)
+    implementation(libs.androidx.hilt.navigation.compose)
 }

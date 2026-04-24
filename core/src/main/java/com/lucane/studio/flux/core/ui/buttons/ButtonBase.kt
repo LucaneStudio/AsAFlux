@@ -53,6 +53,7 @@ fun ButtonBase(
             color = if (enable) colors.borderColor else colors.disabledBorderColor
         ),
         contentPadding = paddingValues,
+        enabled = enable,
         onClick = onClick
     ) {
         Row(

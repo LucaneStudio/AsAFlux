@@ -44,6 +44,16 @@ fun PrimaryButton(
             shapeResized = RoundedCornerShape(6.dp)
             paddingValuesResized = PaddingValues(horizontal = 12.5.dp, vertical = 2.dp)
         }
+        ButtonSize.M -> {
+            modifierResized = modifier.height(40.dp)
+            textStyleResized = TextStyle(
+                fontFamily = AsAFont.bold,
+                fontSize = 14.sp
+            )
+            spacingResized = 10.dp
+            shapeResized = RoundedCornerShape(8.dp)
+            paddingValuesResized = PaddingValues(horizontal = 18.dp, vertical = 12.dp)
+        }
         else -> {
             modifierResized = modifier.height(32.dp)
             textStyleResized = TextStyle(
@@ -69,7 +79,10 @@ fun PrimaryButton(
         colors = AsAButtonColors(
             containerColor = AsAColors.purpleNeon,
             labelColor = Color.White,
-            iconColor = Color.White
+            iconColor = Color.White,
+            disabledContainerColor = AsAColors.purpleNeon.copy(0.3f),
+            disabledLabelColor = AsAColors.purpleLightGray,
+            disabledIconColor = AsAColors.purpleLightGray
         ),
         onClick = onClick
     )

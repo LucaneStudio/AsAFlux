@@ -24,4 +24,59 @@
         <item>sat.</item>
         <item>sun.</item>
     </string-array>
+
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_step_counter">%1$d/%2$d</string>
+    <string name="onboarding_date_placeholder">Select a date</string>
+    <string name="onboarding_duration_range_hint">Between %1$d and %2$d days</string>
+    <string name="onboarding_cta_save">Calculate and finish →</string>
+    <string name="onboarding_cta_calculate">Calculate and finish →</string>
+
+    <string name="onboarding_disclaimer_title">Welcome to AsAFlux</string>
+    <string name="onboarding_disclaimer_subtitle">A few important points before you start</string>
+    <string name="onboarding_disclaimer_not_medical">This app &lt;b&gt;is not a medical device.&lt;/b&gt; It does not replace professional advice.</string>
+    <string name="onboarding_disclaimer_predictions">Predictions are &lt;b&gt;estimates&lt;/b&gt; based on your data. They may vary.</string>
+    <string name="onboarding_disclaimer_local_only">&lt;b&gt;100% local.&lt;/b&gt; No data leaves your phone.</string>
+    <string name="onboarding_disclaimer_consult_pro">If in doubt, &lt;b&gt;consult a healthcare professional.&lt;/b&gt;</string>
+    <string name="onboarding_disclaimer_accept">Got it, continue →</string>
+
+    <string name="onboarding_mode_title">Let\'s set up your tracking</string>
+    <string name="onboarding_mode_subtitle">Choose the method that suits you</string>
+    <string name="onboarding_mode_quick_title">Quick entry</string>
+    <string name="onboarding_mode_quick_desc">Date of last bleeding + usual durations</string>
+    <string name="onboarding_mode_history_title">My history</string>
+    <string name="onboarding_mode_history_desc">Enter up to 6 recent cycles for more accuracy</string>
+    <string name="onboarding_mode_first_cycle_title">My first cycles</string>
+    <string name="onboarding_mode_first_cycle_desc">No cycle defined yet — enter the start date only</string>
+    <string name="onboarding_mode_skip">Skip this step</string>
+
+    <string name="onboarding_first_cycle_title">My first cycles</string>
+    <string name="onboarding_first_cycle_subtitle">No cycle information is needed for now</string>
+    <string name="onboarding_first_cycle_date_label">Start date of your first bleeding</string>
+    <string name="onboarding_first_cycle_info_defaults">The app will use default values (28-day cycle / 5-day bleeding) until you have more data.</string>
+    <string name="onboarding_first_cycle_info_settings">You can refine these durations in settings at any time.</string>
+    <string name="onboarding_first_cycle_info_improve">Predictions will improve as more cycles are recorded.</string>
+    <string name="onboarding_first_cycle_cta">Confirm and continue →</string>
+
+    <string name="onboarding_quick_title">Your information</string>
+    <string name="onboarding_quick_subtitle">This data stays on your phone</string>
+    <string name="onboarding_quick_date_label">Start date of your last bleeding</string>
+    <string name="onboarding_quick_cycle_length_label">Usual cycle length</string>
+    <string name="onboarding_quick_bleeding_label">Usual bleeding duration</string>
+
+    <string name="onboarding_history_title">My recent cycles</string>
+    <string name="onboarding_history_subtitle">From oldest to most recent. At least 3, up to 6</string>
+    <string name="onboarding_history_bleeding_label">Usual bleeding duration</string>
+    <string name="onboarding_history_slot_empty">%1$d</string>
+    <string name="onboarding_history_estimated_cycle">Estimated average cycle: &lt;b&gt;&lt;c&gt;%1$d days&lt;/c&gt;&lt;/b&gt; over %2$d cycles entered</string>
+
+    <string name="onboarding_done_title">Let\'s go!</string>
+    <string name="onboarding_done_subtitle">Your tracking is set up. Edit this information at any time in settings.</string>
+    <string name="onboarding_done_cta">Open calendar →</string>
+
+    <string name="common_confirm">Confirm</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_days">days</string>
+
+    <string name="action_tap_to_enter">Tap to enter</string>
 </resources>

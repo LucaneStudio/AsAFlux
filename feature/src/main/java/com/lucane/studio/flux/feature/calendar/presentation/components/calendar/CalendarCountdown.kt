@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
-import com.lucane.studio.flux.feature.R
 import com.lucane.studio.flux.core.R as CoreRes
 
 /**

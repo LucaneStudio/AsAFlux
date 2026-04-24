@@ -11,15 +11,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lucane.studio.flux.core.ui.buttons.IconLightBlurButton
 import com.lucane.studio.flux.core.ui.buttons.LightBlurButton
-import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.R
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import com.lucane.studio.flux.core.R as CoreRes
 
 @Composable
-fun HomeHeaderRow(
+fun MainHeaderRow(
     modifier: Modifier = Modifier.fillMaxWidth(),
-    hazeState: HazeState
 ){
+    val hazeState = LocalHazeController.current.mainHazeState
+
     Row(
         modifier.padding(vertical = 15.dp),
         horizontalArrangement = Arrangement.SpaceBetween

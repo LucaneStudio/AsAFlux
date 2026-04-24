@@ -40,17 +40,18 @@ import com.lucane.studio.flux.core.theme.AsAFont
 import com.lucane.studio.flux.core.theme.AsAHazeStyles
 import com.lucane.studio.flux.core.ui.utils.EnumPages
 import com.lucane.studio.flux.core.ui.utils.IconGravity
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeEffect
 import com.lucane.studio.flux.core.R as CoreRes
 
 @Composable
 fun Navbar(
-    hazeState: HazeState,
     selectedPageId: EnumPages,
     onClick: (EnumPages) -> Unit
 ){
     val shape = RoundedCornerShape(12.dp)
+    val hazeState = LocalHazeController.current.mainHazeState
 
     Box(
         modifier = Modifier.fillMaxWidth().height(59.dp)
