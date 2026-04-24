@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import com.lucane.studio.flux.feature.calendar.presentation.components.calendar.CalendarCard
 import com.lucane.studio.flux.feature.calendar.presentation.components.calendar.state.CalendarUiState
 import com.lucane.studio.flux.feature.calendar.presentation.screen.calendar.CalendarViewModel
@@ -15,8 +16,6 @@ import dev.chrisbanes.haze.HazeState
 
 @Composable
 fun CalendarScreen(
-    modifier: Modifier = Modifier,
-    hazeState: HazeState,
     viewModel: CalendarViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -33,7 +32,6 @@ fun CalendarScreen(
         is CalendarUiState.Success -> {
             CalendarCard(
                 viewModel = viewModel,
-                hazeState = hazeState,
                 monthNumber = state.monthNumber,
                 monthName = state.monthName,
                 days = state.days,

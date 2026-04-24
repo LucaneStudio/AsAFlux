@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
 import com.lucane.studio.flux.core.ui.utils.HeaderInfos
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import dev.chrisbanes.haze.HazeState
 
 
@@ -35,10 +36,11 @@ import dev.chrisbanes.haze.HazeState
 fun CardWithHeader(
     modifier: Modifier = Modifier,
     headerInfos: HeaderInfos,
-    hazeState: HazeState,
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable () -> Unit
 ) {
+    val hazeState = LocalHazeController.current.mainHazeState
+
     CardBase(
         modifier = modifier,
         hazeState = hazeState,

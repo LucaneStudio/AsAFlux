@@ -8,23 +8,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.lucane.studio.flux.core.utils.HazeController
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.ui.ApplicationBase
 import com.lucane.studio.flux.core.ui.cards.CardWithHeader
 import com.lucane.studio.flux.core.ui.utils.HeaderInfos
 import com.lucane.studio.flux.feature.calendar.presentation.screen.calendar.CalendarScreen
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.haze.rememberHazeState
 import com.lucane.studio.flux.core.R as CoreRes
 
 @AndroidEntryPoint
@@ -35,6 +38,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val systemUiController = rememberSystemUiController()
+            val hazeState = rememberHazeState()
 
             WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -47,19 +51,22 @@ class MainActivity : ComponentActivity() {
                 navigationBarContrastEnforced = false,
                 darkIcons = true
             )
-            MainScreen()
+            CompositionLocalProvider(
+                LocalHazeController provides HazeController(hazeState)
+            ) {
+                MainScreen()
+            }
         }
     }
 }
 
 @Composable
 fun MainScreen(){
-    ApplicationBase { hazeState ->
-        CalendarScreen(hazeState = hazeState)
+    ApplicationBase {
+        CalendarScreen()
 
         CardWithHeader(
             modifier = Modifier.fillMaxWidth(),
-            hazeState = hazeState,
             headerInfos = HeaderInfos(
                 labelRes = stringResource(CoreRes.string.daily_sensation),
                 iconRes = CoreRes.drawable.ic_chevron_end,
@@ -69,7 +76,6 @@ fun MainScreen(){
 
         CardWithHeader(
             modifier = Modifier.fillMaxWidth(),
-            hazeState = hazeState,
             headerInfos = HeaderInfos(
                 labelRes = stringResource(CoreRes.string.my_cycles),
                 iconRes = CoreRes.drawable.ic_chevron_end,

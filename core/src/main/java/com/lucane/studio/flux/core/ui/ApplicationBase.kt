@@ -24,13 +24,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.lucane.studio.flux.core.R
 import com.lucane.studio.flux.core.ui.utils.EnumPages
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 
 @Composable
-fun ApplicationBase(content: @Composable (HazeState) -> Unit) {
-    val hazeState = rememberHazeState()
+fun ApplicationBase(content: @Composable () -> Unit) {
+    val hazeState = LocalHazeController.current.mainHazeState
     var selectedPage by remember { mutableStateOf(EnumPages.HOME) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -64,7 +65,7 @@ fun ApplicationBase(content: @Composable (HazeState) -> Unit) {
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    content.invoke(hazeState)
+                    content.invoke()
                 }
                 Spacer(Modifier.size(8.dp))
                 Navbar(

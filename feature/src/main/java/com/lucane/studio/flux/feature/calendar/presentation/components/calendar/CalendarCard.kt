@@ -23,6 +23,7 @@ import com.lucane.studio.flux.core.ui.buttons.DropdownToggleAction
 import com.lucane.studio.flux.core.ui.buttons.DropdownToggleMenu
 import com.lucane.studio.flux.core.ui.buttons.IconLightButton
 import com.lucane.studio.flux.core.ui.buttons.PrimaryButton
+import com.lucane.studio.flux.core.utils.LocalHazeController
 import com.lucane.studio.flux.feature.calendar.presentation.components.calendar.state.CalendarDayUiState
 import com.lucane.studio.flux.feature.calendar.presentation.screen.calendar.CalendarViewModel
 import dev.chrisbanes.haze.HazeState
@@ -44,7 +45,6 @@ import com.lucane.studio.flux.core.R as CoreRes
 fun CalendarCard(
     modifier: Modifier = Modifier,
     viewModel: CalendarViewModel,
-    hazeState: HazeState,
     monthNumber: String,
     monthName: String,
     days: List<CalendarDayUiState>,
@@ -53,7 +53,7 @@ fun CalendarCard(
 ) {
     val showFertility by viewModel.showFertility.collectAsState()
     val showOvulation by viewModel.showOvulation.collectAsState()
-
+    val hazeState = LocalHazeController.current.mainHazeState
     var menuExpanded by remember { mutableStateOf(false) }
 
     val internHazeState = rememberHazeState()
