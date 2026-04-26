@@ -12,8 +12,10 @@ class SaveQuickSetupUseCase @Inject constructor(
     private val settingsDataStore: SettingsDataStore,
 ) {
     suspend operator fun invoke(data: InitialCycleData) {
+        dailyLogRepository.deleteAllPeriodLogs()
         settingsDataStore.setAverageCycleLength(data.averageCycleLength)
         settingsDataStore.setAverageBleedingDuration(data.averageBleedingDuration)
+
         repeat(data.averageBleedingDuration) { offset ->
             val date = data.lastPeriodStart.plusDays(offset.toLong())
             val intensity = when (offset) {

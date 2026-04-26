@@ -49,5 +49,7 @@ class DailyLogRepositoryImpl @Inject constructor(
 
     override suspend fun deleteDailyLog(date: LocalDate) =
         dao.deleteDailyLog(date.toString())
-    // Cross-refs are removed automatically via CASCADE
+
+    override suspend fun deleteAllPeriodLogs() =
+        dao.deleteAllPeriodLogs()
 }

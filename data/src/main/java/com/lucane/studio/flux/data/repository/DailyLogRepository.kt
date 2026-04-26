@@ -17,4 +17,6 @@ interface DailyLogRepository {
 
     /** Full deletion of a day's log. */
     suspend fun deleteDailyLog(date: LocalDate)
+
+    suspend fun deleteAllPeriodLogs()
 }

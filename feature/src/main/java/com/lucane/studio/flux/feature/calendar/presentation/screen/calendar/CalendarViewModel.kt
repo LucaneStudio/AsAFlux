@@ -2,6 +2,7 @@ package com.lucane.studio.flux.feature.calendar.presentation.screen.calendar
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucane.studio.flux.data.local.datastore.SettingsDataStore
 import com.lucane.studio.flux.data.local.datastore.UserPreferencesDataStore
 import com.lucane.studio.flux.data.model.DailyLog
 import com.lucane.studio.flux.data.model.FlowIntensity
@@ -36,6 +37,8 @@ class CalendarViewModel @Inject constructor(
     private val getCycleHistory: GetCycleHistoryUseCase,
     private val togglePeriod: TogglePeriodUseCase,
     private val prefsDataStore: UserPreferencesDataStore,
+    // FIX : injection du DataStore qui contient le cycle saisi à l'onboarding
+    private val settingsDataStore: SettingsDataStore,
 ) : ViewModel() {
 
     // ── Internal state ────────────────────────────────────────────────────────
@@ -48,14 +51,30 @@ class CalendarViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<CalendarUiState> = _currentMonth
         .flatMapLatest { month ->
+            // FIX : on combine les deux valeurs du SettingsDataStore en un seul Flow
+            // pour ne pas dépasser la limite de 5 arguments de combine()
+            val cycleSettings = settingsDataStore.averageCycleLength
+                .combine(settingsDataStore.averageBleedingDuration) { cycleLen, bleedingLen ->
+                    cycleLen to bleedingLen
+                }
+
             combine(
-                getMonthLogs(month),  // logs du mois affiché → grille
-                getCycleHistory(),    // 6 mois d'historique → calcul des cycles
+                getMonthLogs(month),             // logs du mois affiché → grille
+                getCycleHistory(),               // 6 mois d'historique → calcul des cycles
                 _selectedDate,
-                prefsDataStore.userPreferences.map { it.showOvulation },
-                prefsDataStore.userPreferences.map { it.showFertileWindow }
-            ) { monthLogs, history, selectedDate, showOvulation, showFertility ->
-                buildUiState(month, monthLogs, history, selectedDate, showOvulation, showFertility)
+                prefsDataStore.userPreferences,  // showOvulation + showFertileWindow
+                cycleSettings,                   // averageCycleLength + averageBleedingDuration
+            ) { monthLogs, history, selectedDate, prefs, (savedCycleLength, savedBleedingDuration) ->
+                buildUiState(
+                    month                = month,
+                    monthLogs            = monthLogs,
+                    history              = history,
+                    selectedDate         = selectedDate,
+                    showOvulation        = prefs.showOvulation,
+                    showFertileWindow    = prefs.showFertileWindow,
+                    savedCycleLength     = savedCycleLength,
+                    savedBleedingDuration = savedBleedingDuration,
+                )
             }
         }
         .catch { e -> emit(CalendarUiState.Error(e.message ?: "Unknown error")) }
@@ -67,14 +86,12 @@ class CalendarViewModel @Inject constructor(
 
     // ── Display toggles ───────────────────────────────────────────────────────
 
-    private val _showOvulation     = prefsDataStore.userPreferences
+    val showOvulation: StateFlow<Boolean> = prefsDataStore.userPreferences
         .map { it.showOvulation }
-    private val _showFertility = prefsDataStore.userPreferences
-        .map { it.showFertileWindow }
-
-    val showOvulation: StateFlow<Boolean> = _showOvulation
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
-    val showFertility: StateFlow<Boolean> = _showFertility
+
+    val showFertility: StateFlow<Boolean> = prefsDataStore.userPreferences
+        .map { it.showFertileWindow }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     fun onToggleOvulation() {
@@ -118,19 +135,20 @@ class CalendarViewModel @Inject constructor(
         selectedDate: LocalDate,
         showOvulation: Boolean,
         showFertileWindow: Boolean,
+        savedCycleLength: Int,
+        savedBleedingDuration: Int,
     ): CalendarUiState {
         val logsByDate      = monthLogs.associateBy { it.date }
-        val nextPeriodDate  = computeNextPeriodDate(history)
+        val nextPeriodDate  = computeNextPeriodDate(history, savedCycleLength)
         val ovulationDate   = nextPeriodDate?.minusDays(14)
         val fertileStart    = ovulationDate?.minusDays(5)
         val fertileEnd      = ovulationDate?.plusDays(1)
-        val avgPeriodLength = computeAvgPeriodLength(history)
+        val avgPeriodLength = computeAvgPeriodLength(history, savedBleedingDuration)
         val nextPeriodEnd   = nextPeriodDate?.plusDays(avgPeriodLength - 1)
         val daysRemaining   = nextPeriodDate?.let {
             ChronoUnit.DAYS.between(LocalDate.now(), it).toInt().takeIf { d -> d >= 0 }
         }
 
-        // Apply toggles before passing to cells
         val displayedOvulation    = if (showOvulation) ovulationDate else null
         val displayedFertileStart = if (showFertileWindow) fertileStart else null
         val displayedFertileEnd   = if (showFertileWindow) fertileEnd else null
@@ -143,9 +161,9 @@ class CalendarViewModel @Inject constructor(
                 month          = month,
                 logsByDate     = logsByDate,
                 selectedDate   = selectedDate,
-                ovulationDate  = displayedOvulation,     // ← filtré
-                fertileStart   = displayedFertileStart,  // ← filtré
-                fertileEnd     = displayedFertileEnd,    // ← filtré
+                ovulationDate  = displayedOvulation,
+                fertileStart   = displayedFertileStart,
+                fertileEnd     = displayedFertileEnd,
                 nextPeriodDate = nextPeriodDate,
                 nextPeriodEnd  = nextPeriodEnd,
             ),
@@ -197,7 +215,7 @@ class CalendarViewModel @Inject constructor(
                 isOvulation    = date == ovulationDate,
                 isFertile      = fertileStart != null && fertileEnd != null
                         && !date.isBefore(fertileStart) && !date.isAfter(fertileEnd),
-                isNextPeriod   = nextPeriodDate != null && nextPeriodEnd != null   // ← nouveau
+                isNextPeriod   = nextPeriodDate != null && nextPeriodEnd != null
                         && !date.isBefore(nextPeriodDate) && !date.isAfter(nextPeriodEnd),
             )
         }
@@ -209,60 +227,87 @@ class CalendarViewModel @Inject constructor(
      * Collects period-start dates (first day of each consecutive flow streak),
      * then computes the average cycle length from the last 3 starts.
      *
+     * FIX : quand une seule streak est détectée (cas Quick Setup / premier cycle),
+     * on utilise [savedCycleLength] sauvé dans le DataStore à l'onboarding comme
+     * fallback, plutôt que de retourner null.
+     *
      * Uses [ChronoUnit.DAYS] instead of [java.time.Period.days] to correctly
      * count days across month boundaries.
      */
-    private fun computeNextPeriodDate(logs: List<DailyLog>): LocalDate? {
-        android.util.Log.d("CalendarVM", "history size: ${logs.size}")
+    private fun computeNextPeriodDate(
+        logs: List<DailyLog>,
+        savedCycleLength: Int,
+    ): LocalDate? {
+        android.util.Log.d("CalendarVM", "history size: ${logs.size}, savedCycleLength: $savedCycleLength")
 
         val sortedDates = logs
             .filter { it.flowIntensity != FlowIntensity.NONE }
             .map { it.date }
             .sorted()
 
-        // Track both the streak starts AND the last date seen
         data class Acc(val starts: List<LocalDate>, val lastSeen: LocalDate?)
 
         val result = sortedDates.fold(Acc(emptyList(), null)) { acc, date ->
             if (acc.lastSeen == null || ChronoUnit.DAYS.between(acc.lastSeen, date) > 1) {
-                Acc(acc.starts + date, date)   // new streak
+                Acc(acc.starts + date, date)   // nouvelle streak
             } else {
-                Acc(acc.starts, date)          // continuation — update lastSeen only
+                Acc(acc.starts, date)          // continuation — on met à jour lastSeen uniquement
             }
         }
 
         val periodStarts = result.starts
         android.util.Log.d("CalendarVM", "periodStarts: $periodStarts")
 
-        if (periodStarts.size < 2) {
-            android.util.Log.d("CalendarVM", "not enough starts → null")
-            return null
+        return when {
+            // Cas normal : ≥ 2 cycles en base → calcul par moyenne des 3 derniers
+            periodStarts.size >= 2 -> {
+                val recentStarts   = periodStarts.takeLast(3)
+                val avgCycleLength = recentStarts
+                    .zipWithNext { a, b -> ChronoUnit.DAYS.between(a, b) }
+                    .average()
+                    .toLong()
+
+                android.util.Log.d("CalendarVM", "recentStarts: $recentStarts")
+                android.util.Log.d("CalendarVM", "avgCycle (computed): $avgCycleLength")
+                android.util.Log.d("CalendarVM", "nextPeriod: ${recentStarts.last().plusDays(avgCycleLength)}")
+
+                recentStarts.last().plusDays(avgCycleLength)
+            }
+
+            // FIX — cas Quick Setup / premier cycle : 1 seule streak détectée.
+            // On dispose du cycle moyen saisi à l'onboarding → on l'utilise comme fallback.
+            periodStarts.size == 1 && savedCycleLength > 0 -> {
+                val nextPeriod = periodStarts.last().plusDays(savedCycleLength.toLong())
+                android.util.Log.d("CalendarVM", "avgCycle (saved fallback): $savedCycleLength")
+                android.util.Log.d("CalendarVM", "nextPeriod (fallback): $nextPeriod")
+                nextPeriod
+            }
+
+            // Pas assez de données
+            else -> {
+                android.util.Log.d("CalendarVM", "not enough starts → null")
+                null
+            }
         }
-
-        val recentStarts   = periodStarts.takeLast(3)
-        val avgCycleLength = recentStarts
-            .zipWithNext { a, b -> ChronoUnit.DAYS.between(a, b) }
-            .average()
-            .toLong()
-
-        android.util.Log.d("CalendarVM", "periodStarts: $periodStarts")
-        android.util.Log.d("CalendarVM", "recentStarts: $recentStarts")
-        android.util.Log.d("CalendarVM", "avgCycle: $avgCycleLength")
-        android.util.Log.d("CalendarVM", "nextPeriod: ${recentStarts.last().plusDays(avgCycleLength)}")
-        android.util.Log.d("CalendarVM", "today: ${LocalDate.now()}")
-        android.util.Log.d("CalendarVM", "daysRemaining: ${ChronoUnit.DAYS.between(LocalDate.now(), recentStarts.last().plusDays(avgCycleLength))}")
-
-        return recentStarts.last().plusDays(avgCycleLength)
     }
 
-    private fun computeAvgPeriodLength(logs: List<DailyLog>): Long {
-        // Group consecutive flow days into streaks, measure each streak length
+    /**
+     * Computes the average period (bleeding) length across all detected streaks.
+     *
+     * FIX : utilise [savedBleedingDuration] saisi à l'onboarding comme fallback
+     * quand aucun historique n'est disponible, plutôt qu'une constante arbitraire.
+     */
+    private fun computeAvgPeriodLength(
+        logs: List<DailyLog>,
+        savedBleedingDuration: Int,
+    ): Long {
         val sortedDates = logs
             .filter { it.flowIntensity != FlowIntensity.NONE }
             .map { it.date }
             .sorted()
 
-        if (sortedDates.isEmpty()) return 5L  // default fallback
+        // FIX : fallback sur la valeur du DataStore (onboarding) plutôt que 5L hardcodé
+        if (sortedDates.isEmpty()) return savedBleedingDuration.toLong().coerceAtLeast(1L)
 
         data class Acc(
             val streaks: List<Int>,
@@ -274,9 +319,9 @@ class CalendarViewModel @Inject constructor(
             when {
                 acc.lastSeen == null -> Acc(acc.streaks, 1, date)
                 ChronoUnit.DAYS.between(acc.lastSeen, date) == 1L ->
-                    Acc(acc.streaks, acc.currentStreak + 1, date)  // continuation
+                    Acc(acc.streaks, acc.currentStreak + 1, date)   // continuation
                 else ->
-                    Acc(acc.streaks + acc.currentStreak, 1, date)  // new streak
+                    Acc(acc.streaks + acc.currentStreak, 1, date)   // nouvelle streak
             }
         }
 

@@ -16,6 +16,8 @@ class SaveHistoricalCyclesUseCase @Inject constructor(
     suspend operator fun invoke(startDates: List<LocalDate>, bleedingDuration: Int) {
         require(startDates.size >= 3) { "Au moins 3 cycles requis" }
 
+        dailyLogRepository.deleteAllPeriodLogs()
+
         val sorted = startDates.sorted()
         val avgCycleLength = sorted
             .zipWithNext { a, b -> ChronoUnit.DAYS.between(a, b).toInt() }

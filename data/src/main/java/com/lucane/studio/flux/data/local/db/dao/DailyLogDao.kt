@@ -53,4 +53,7 @@ interface DailyLogDao {
      */
     @Query("DELETE FROM daily_log_symptoms WHERE date = :date")
     suspend fun deleteCrossRefsForDate(date: String)
+
+    @Query("DELETE FROM daily_logs WHERE flowIntensity != 'NONE'")
+    suspend fun deleteAllPeriodLogs()
 }
