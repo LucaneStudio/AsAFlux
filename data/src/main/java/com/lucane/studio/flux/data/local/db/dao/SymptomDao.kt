@@ -13,7 +13,7 @@ interface SymptomDao {
     fun getAllSymptoms(): Flow<List<SymptomEntity>>
 
     @Upsert
-    suspend fun upsertSymptom(entity: SymptomEntity)
+    suspend fun upsertSymptom(entity: SymptomEntity): Long
 
     @Query("DELETE FROM symptoms WHERE id = :id")
     suspend fun deleteSymptom(id: Long)

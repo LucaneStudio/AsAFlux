@@ -12,10 +12,11 @@ class SaveFirstCycleUseCase @Inject constructor(
     private val settingsDataStore: SettingsDataStore,
 ) {
     suspend operator fun invoke(startDate: LocalDate) {
+        dailyLogRepository.deleteAllPeriodLogs()
         settingsDataStore.setAverageCycleLength(28)
         settingsDataStore.setAverageBleedingDuration(5)
         dailyLogRepository.upsertDailyLog(
-            DailyLog(date = startDate, flowIntensity = FlowIntensity.MEDIUM)
+            DailyLog(date = startDate, flowIntensity = FlowIntensity.MEDIUM, isPeriod = true)
         )
     }
 }

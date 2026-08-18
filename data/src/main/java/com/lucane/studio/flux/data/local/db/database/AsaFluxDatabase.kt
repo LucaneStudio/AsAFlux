@@ -23,7 +23,7 @@ import com.lucane.studio.flux.data.local.db.entity.SymptomEntity
         SymptomEntity::class,
         DailyLogSymptomCrossRef::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(DateConverter::class)

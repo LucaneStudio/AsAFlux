@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class AsaFluxApplication : Application() {
 
-    @Inject
+//    @Inject
 //    lateinit var testDataSeeder: TestDataSeeder
 
     override fun onCreate() {

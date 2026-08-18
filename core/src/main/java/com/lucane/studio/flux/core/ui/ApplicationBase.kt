@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,9 +24,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.lucane.studio.flux.core.R
-import com.lucane.studio.flux.core.utils.LocalApplicationBaseController
-import com.lucane.studio.flux.core.ui.utils.EnumPages
-import com.lucane.studio.flux.core.utils.LocalHazeController
+import com.lucane.studio.flux.core.providers.LocalApplicationBaseController
+import com.lucane.studio.flux.core.navigation.EnumPages
+import com.lucane.studio.flux.core.providers.LocalHazeController
 import dev.chrisbanes.haze.hazeSource
 
 @Composable
@@ -57,7 +58,7 @@ fun ApplicationBase(content: @Composable () -> Unit) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(62.dp),
+                    .then(if (header != null) Modifier.height(62.dp) else Modifier),
                 contentAlignment = Alignment.Center
             ) {
                 header?.invoke()
@@ -68,15 +69,16 @@ fun ApplicationBase(content: @Composable () -> Unit) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                Column(
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
-                        .padding(top = 15.dp),
+                        .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    content.invoke()
+                    item {
+                        content.invoke()
+                    }
                 }
 
 

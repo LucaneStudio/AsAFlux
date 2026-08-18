@@ -38,9 +38,9 @@ import com.lucane.studio.flux.core.R
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
 import com.lucane.studio.flux.core.theme.AsAHazeStyles
-import com.lucane.studio.flux.core.ui.utils.EnumPages
-import com.lucane.studio.flux.core.ui.utils.IconGravity
-import com.lucane.studio.flux.core.utils.LocalHazeController
+import com.lucane.studio.flux.core.navigation.EnumPages
+import com.lucane.studio.flux.core.ui.model.IconGravity
+import com.lucane.studio.flux.core.providers.LocalHazeController
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeEffect
 import com.lucane.studio.flux.core.R as CoreRes

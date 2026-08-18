@@ -20,4 +20,5 @@ data class DailyLogEntity(
     val painLevel: Int?,
     val mood: String?,           // Mood.name or null
     val notes: String?,
+    val isPeriod: Boolean = false,
 )

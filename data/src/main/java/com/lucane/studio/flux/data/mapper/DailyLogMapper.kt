@@ -14,6 +14,22 @@ fun DailyLogWithSymptoms.toDomain(): DailyLog = DailyLog(
     mood          = dailyLog.mood?.let { Mood.valueOf(it) },
     notes         = dailyLog.notes,
     symptoms      = symptoms.map { it.toDomain() },
+    isPeriod      = dailyLog.isPeriod,
+)
+
+/**
+ * Maps a bare entity (no symptom join) to the domain model.
+ * Used on read paths where symptoms are not needed — e.g. cycle stat
+ * calculations — to avoid the @Transaction overhead of the relation query.
+ */
+fun DailyLogEntity.toDomain(): DailyLog = DailyLog(
+    date          = LocalDate.parse(date),
+    flowIntensity = FlowIntensity.valueOf(flowIntensity),
+    painLevel     = painLevel,
+    mood          = mood?.let { Mood.valueOf(it) },
+    notes         = notes,
+    symptoms      = emptyList(),
+    isPeriod      = isPeriod,
 )
 
 fun DailyLog.toEntity(): DailyLogEntity = DailyLogEntity(
@@ -22,4 +38,5 @@ fun DailyLog.toEntity(): DailyLogEntity = DailyLogEntity(
     painLevel     = painLevel,
     mood          = mood?.name,
     notes         = notes,
+    isPeriod      = isPeriod,
 )

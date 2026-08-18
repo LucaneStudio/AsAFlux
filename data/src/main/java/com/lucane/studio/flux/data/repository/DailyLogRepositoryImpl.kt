@@ -49,6 +49,22 @@ class DailyLogRepositoryImpl @Inject constructor(
 
     override suspend fun deleteDailyLog(date: LocalDate) =
         dao.deleteDailyLog(date.toString())
+    // Cross-refs are removed automatically via CASCADE
+
+    // getAllPeriodLogs returns plain entities (no symptoms join needed —
+    // symptoms are not required for cycle stat calculations), mapped via the
+    // entity-only mapper to avoid the @Transaction overhead of the relation query.
+    override suspend fun getAllPeriodLogs(): List<DailyLog> =
+        dao.getAllPeriodLogs().map { it.toDomain() }
+
+    override fun getAllPeriodLogsFlow(): Flow<List<DailyLog>> =
+        dao.getAllPeriodLogsFlow().map { list -> list.map { it.toDomain() } }
+
+    override suspend fun clearPeriodFlagInRange(afterDate: LocalDate, untilDate: LocalDate) =
+        dao.clearPeriodFlagInRange(
+            afterDate = afterDate.toString(),
+            untilDate = untilDate.toString(),
+        )
 
     override suspend fun deleteAllPeriodLogs() =
         dao.deleteAllPeriodLogs()

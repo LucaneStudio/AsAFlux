@@ -3,6 +3,7 @@ package com.lucane.studio.flux.data.di
 import android.content.Context
 import androidx.room.Room
 import com.lucane.studio.flux.data.local.db.database.AsaFluxDatabase
+import com.lucane.studio.flux.data.local.db.migration.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ object DatabaseModule {
             context,
             AsaFluxDatabase::class.java,
             "asaflux.db",
-        ).build()
+        ).addMigrations(MIGRATION_1_2).build()
 
     @Provides
     fun provideDailyLogDao(database: AsaFluxDatabase) = database.dailyLogDao()

@@ -1,18 +1,15 @@
 package com.lucane.studio.flux.feature.onboarding.presentation.components.step
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.lucane.studio.flux.core.ui.buttons.PrimaryButton
-import com.lucane.studio.flux.core.ui.utils.ButtonSize
-import com.lucane.studio.flux.core.utils.LocalApplicationBaseController
-import com.lucane.studio.flux.core.utils.LocalHazeController
+import com.lucane.studio.flux.core.ui.inputs.buttons.PrimaryButton
+import com.lucane.studio.flux.core.ui.model.ButtonSize
+import com.lucane.studio.flux.core.providers.LocalApplicationBaseController
 import com.lucane.studio.flux.feature.onboarding.presentation.components.OnboardingProgressHeader
 import com.lucane.studio.flux.feature.onboarding.presentation.components.OnboardingTitle
 import com.lucane.studio.flux.core.R as CoreRes

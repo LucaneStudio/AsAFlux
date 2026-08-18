@@ -1,8 +1,6 @@
 package com.lucane.studio.flux.feature.onboarding.presentation.components.step
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,12 +12,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
-import com.lucane.studio.flux.core.ui.buttons.PrimaryButton
+import com.lucane.studio.flux.core.ui.inputs.buttons.PrimaryButton
 import com.lucane.studio.flux.core.ui.cards.CardBase
-import com.lucane.studio.flux.core.ui.utils.ButtonSize
-import com.lucane.studio.flux.core.utils.LocalApplicationBaseController
-import com.lucane.studio.flux.core.utils.LocalHazeController
-import com.lucane.studio.flux.core.utils.toAnnotatedString
+import com.lucane.studio.flux.core.ui.model.ButtonSize
+import com.lucane.studio.flux.core.providers.LocalApplicationBaseController
+import com.lucane.studio.flux.core.providers.LocalHazeController
 import com.lucane.studio.flux.feature.onboarding.presentation.components.OnboardingProgressHeader
 import com.lucane.studio.flux.feature.onboarding.presentation.components.OnboardingDateField
 import com.lucane.studio.flux.feature.onboarding.presentation.components.OnboardingTitle

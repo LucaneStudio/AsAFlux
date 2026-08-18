@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
-import com.lucane.studio.flux.core.ui.buttons.PrimaryTextFieldButton
+import com.lucane.studio.flux.core.ui.inputs.buttons.PrimaryTextFieldButton
 import com.lucane.studio.flux.core.R as CoreRes
 import java.time.Instant
 import java.time.LocalDate

@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lucane.studio.flux.core.theme.AsAColors
-import com.lucane.studio.flux.core.ui.buttons.PrimaryTextFieldButton
+import com.lucane.studio.flux.core.ui.inputs.buttons.PrimaryTextFieldButton
 import com.lucane.studio.flux.core.R as CoreRes
 import java.time.Instant
 import java.time.LocalDate

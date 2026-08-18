@@ -15,7 +15,7 @@ class SymptomRepositoryImpl @Inject constructor(
     override fun getAllSymptoms(): Flow<List<Symptom>> =
         dao.getAllSymptoms().map { list -> list.map { it.toDomain() } }
 
-    override suspend fun upsertSymptom(symptom: Symptom) =
+    override suspend fun upsertSymptom(symptom: Symptom): Long =
         dao.upsertSymptom(symptom.toEntity())
 
     override suspend fun deleteSymptom(id: Long) =

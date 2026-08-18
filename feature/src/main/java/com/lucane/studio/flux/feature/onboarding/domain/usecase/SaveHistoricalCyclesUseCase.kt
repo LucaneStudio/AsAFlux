@@ -36,7 +36,7 @@ class SaveHistoricalCyclesUseCase @Inject constructor(
                     bleedingDuration-1 -> FlowIntensity.LIGHT
                     else               -> FlowIntensity.MEDIUM
                 }
-                dailyLogRepository.upsertDailyLog(DailyLog(date = date, flowIntensity = intensity))
+                dailyLogRepository.upsertDailyLog(DailyLog(date = date, flowIntensity = intensity, isPeriod = true))
             }
         }
     }

@@ -21,6 +21,4 @@ data class UserPreferences(
     val contraceptionReminderEnabled: Boolean = false,
     val contraceptionType: String? = null,
     val contraceptionReminderTime: String = "08:00",
-    val showOvulation: Boolean = false,
-    val showFertileWindow: Boolean = false,
 )

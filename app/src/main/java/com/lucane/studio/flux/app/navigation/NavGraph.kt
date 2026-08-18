@@ -10,11 +10,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lucane.studio.flux.app.LocalMainViewModel
+import com.lucane.studio.flux.app.presentation.screen.MainScreen
+import com.lucane.studio.flux.core.navigation.EnumPages
 import com.lucane.studio.flux.core.ui.MainHeaderRow
 import com.lucane.studio.flux.core.ui.Navbar
-import com.lucane.studio.flux.core.utils.LocalApplicationBaseController
-import com.lucane.studio.flux.feature.calendar.presentation.screen.calendar.CalendarScreen
-import com.lucane.studio.flux.feature.onboarding.presentation.screen.OnboardingScreen
+import com.lucane.studio.flux.core.providers.LocalApplicationBaseController
+import com.lucane.studio.flux.feature.onboarding.presentation.OnboardingScreen
 
 @Composable
 fun AsaFluxNavGraph(
@@ -24,7 +25,7 @@ fun AsaFluxNavGraph(
 ) {
     NavHost(
         navController    = navController,
-        startDestination = if (isOnboardingCompleted) Destination.Calendar.route
+        startDestination = if (isOnboardingCompleted) Destination.Main.route
         else Destination.Onboarding.route,
         modifier         = modifier,
     ) {
@@ -37,33 +38,45 @@ fun AsaFluxNavGraph(
 
             OnboardingScreen(
                 onOnboardingComplete = {
-                    navController.navigate(Destination.Calendar.route) {
+                    navController.navigate(Destination.Main.route) {
                         popUpTo(Destination.Onboarding.route) { inclusive = true }
                     }
                 }
             )
         }
 
-        composable(Destination.Calendar.route) {
+        composable(Destination.Main.route) {
             val appBase = LocalApplicationBaseController.current
             val mainViewModel = LocalMainViewModel.current
 
-            val selectedPage by mainViewModel.selectedPage.collectAsState()
-
+            // Navbar reads selectedPage directly in its own composition instead
+            // of closing over a value captured once by LaunchedEffect(Unit) —
+            // the slot content is re-invoked by ApplicationBase on every
+            // recomposition, so the read here always sees the live value.
             LaunchedEffect(Unit) {
-                appBase.setHeader {
-                    MainHeaderRow()
-                }
                 appBase.setNavbar {
-                    Navbar(
-                        selectedPageId = selectedPage
-                    ) {
-                        mainViewModel.setPage( it)
+                    val selectedPage by mainViewModel.selectedPage.collectAsState()
+                    Navbar(selectedPageId = selectedPage) {
+                        mainViewModel.setPage(it)
                     }
                 }
             }
 
-            CalendarScreen()
+            // The import/export header only makes sense on Home, so it's
+            // cleared (not just hidden) on every other tab — that actually
+            // collapses the reserved header space in [ApplicationBase],
+            // instead of leaving a blank gap.
+            LaunchedEffect(Unit) {
+                mainViewModel.selectedPage.collect { page ->
+                    if (page == EnumPages.HOME) {
+                        appBase.setHeader { MainHeaderRow() }
+                    } else {
+                        appBase.clearHeader()
+                    }
+                }
+            }
+
+            MainScreen()
         }
     }
 }

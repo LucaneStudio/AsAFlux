@@ -28,3 +28,6 @@ replay_pid*
 build/
 .gradle/
 .idea/
+
+# Local Gradle daemon JVM toolchain pin (machine-specific)
+gradle/gradle-daemon-jvm.properties

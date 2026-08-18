@@ -15,16 +15,16 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.lucane.studio.flux.app.MainViewModel
-import com.lucane.studio.flux.core.utils.HazeController
-import com.lucane.studio.flux.core.utils.LocalHazeController
+import com.lucane.studio.flux.core.providers.HazeController
+import com.lucane.studio.flux.core.providers.LocalHazeController
 import com.lucane.studio.flux.core.ui.ApplicationBase
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.haze.rememberHazeState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.lucane.studio.flux.app.LocalMainViewModel
 import com.lucane.studio.flux.app.navigation.AsaFluxNavGraph
-import com.lucane.studio.flux.core.utils.ApplicationBaseViewModel
-import com.lucane.studio.flux.core.utils.LocalApplicationBaseController
+import com.lucane.studio.flux.core.providers.ApplicationBaseViewModel
+import com.lucane.studio.flux.core.providers.LocalApplicationBaseController
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
             val appBaseViewModel: ApplicationBaseViewModel = hiltViewModel()
             val isOnboardingCompleted by mainViewModel.isOnboardingCompleted
                 .collectAsStateWithLifecycle()
-
 
             WindowCompat.setDecorFitsSystemWindows(window, false)
 

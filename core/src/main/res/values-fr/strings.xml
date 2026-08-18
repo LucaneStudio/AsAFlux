@@ -3,13 +3,17 @@
     <string name="calendar_start_period">début des saignements</string>
     <string name="calendar_end_period">fin des saignements</string>
     <string name="calendar_countdown_label">jours restants</string>
-    <string name="calendar_toggle_ovulation">Afficher le jour d\'ovulation</string>
-    <string name="calendar_toggle_fertile">Afficher la période de fertilité</string>
     <string name="tray_in">importer</string>
     <string name="tray_out">exporter</string>
     <string name="daily_sensation">Sensation du jour</string>
     <string name="cycles_entered">%1$s cycles saisis</string>
     <string name="my_cycles">Mes cycles</string>
+    <string name="cycle_phase">Phase du cycle</string>
+    <string name="cycle_phase_period_upcoming">Règles suivantes</string>
+    <string name="cycle_phase_fertile_upcoming">Fertilité suivante</string>
+    <string name="cycle_phase_ovulation_upcoming">Ovulation suivante</string>
+    <string name="average_bleeding_duration">Règles moyennes</string>
+    <string name="average_cycle_length">Cycle moyen</string>
     <string name="nav_home">accueil</string>
     <string name="nav_calendar">calendrier</string>
     <string name="nav_details">détails</string>
@@ -78,4 +82,40 @@
     <string name="common_days">jours</string>
 
     <string name="action_tap_to_enter">Appuyer pour saisir</string>
+
+    <string name="tracking_declare_symptoms_title">Déclaration des symptômes</string>
+    <string name="tracking_validate">valider</string>
+    <string name="tracking_section_flow_intensity">intensité des saignements</string>
+    <string name="tracking_flow_none">aucun</string>
+    <string name="tracking_flow_light">léger</string>
+    <string name="tracking_flow_medium">modéré</string>
+    <string name="tracking_flow_heavy">abondant</string>
+    <string name="tracking_section_physical_symptoms">symptômes physiques</string>
+    <string name="tracking_section_psychological_symptoms">symptômes psychiques</string>
+    <string name="tracking_add_symptom">ajouter</string>
+    <string name="tracking_add_symptom_title">Nouveau symptôme</string>
+    <string name="tracking_add_symptom_placeholder">Nom du symptôme</string>
+    <string name="tracking_section_pain_intensity">intensité des douleurs</string>
+    <string name="tracking_pain_none">aucune</string>
+    <string name="tracking_pain_light">légère</string>
+    <string name="tracking_pain_medium">modéré</string>
+    <string name="tracking_pain_strong">forte</string>
+    <string name="tracking_pain_very_strong">très forte</string>
+    <string name="tracking_note_label">note du jour</string>
+    <string name="tracking_note_placeholder">crampes le matin, mieux l\'après-midi…</string>
+    <string name="tracking_legend_bleeding">saignements</string>
+    <string name="tracking_legend_fertility">fertilité</string>
+    <string name="tracking_legend_ovulation">ovulation</string>
+    <string name="tracking_legend_symptoms">symptômes</string>
+
+    <string name="symptom_cramps">Crampes</string>
+    <string name="symptom_headache">Maux de tête</string>
+    <string name="symptom_fatigue">Fatigue</string>
+    <string name="symptom_bloating">Ballonnements</string>
+    <string name="symptom_back_pain">Dos douloureux</string>
+    <string name="symptom_tender_breasts">Seins sensibles</string>
+    <string name="symptom_irritability">Irritabilité</string>
+    <string name="symptom_anxiety">Anxiété</string>
+    <string name="symptom_sadness">Tristesse</string>
+    <string name="symptom_wellbeing">Bien-être</string>
 </resources>

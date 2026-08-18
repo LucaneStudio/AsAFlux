@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 object AsAColors{
     val blueNeon = Color(0xFF3C18FF)
+    val lightBlueNeon = Color(0xFF18D5FF)
     val purpleNeon = Color(0xFF593AFF)
     val redNeon = Color(0xFFFF3A3D)
     val black = Color(0xFF0B0629)

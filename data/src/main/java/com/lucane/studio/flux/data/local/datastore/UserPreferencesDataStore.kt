@@ -33,8 +33,6 @@ class UserPreferencesDataStore @Inject constructor(
         val CONTRACEPTION_REMINDER_ENABLED = booleanPreferencesKey("contraception_reminder_enabled")
         val CONTRACEPTION_TYPE             = stringPreferencesKey("contraception_type")
         val CONTRACEPTION_REMINDER_TIME    = stringPreferencesKey("contraception_reminder_time")
-        val SHOW_OVULATION      = booleanPreferencesKey("show_ovulation")
-        val SHOW_FERTILE_WINDOW = booleanPreferencesKey("show_fertile_window")
     }
 
     val userPreferences: Flow<UserPreferences> = context.dataStore.data.map { prefs ->
@@ -49,8 +47,6 @@ class UserPreferencesDataStore @Inject constructor(
             contraceptionReminderEnabled = prefs[Keys.CONTRACEPTION_REMINDER_ENABLED] ?: false,
             contraceptionType            = prefs[Keys.CONTRACEPTION_TYPE],
             contraceptionReminderTime    = prefs[Keys.CONTRACEPTION_REMINDER_TIME] ?: "08:00",
-            showOvulation      = prefs[Keys.SHOW_OVULATION] ?: false,
-            showFertileWindow  = prefs[Keys.SHOW_FERTILE_WINDOW] ?: false,
         )
     }
 
@@ -81,18 +77,6 @@ class UserPreferencesDataStore @Inject constructor(
             prefs[Keys.CONTRACEPTION_REMINDER_ENABLED] = enabled
             if (type != null) prefs[Keys.CONTRACEPTION_TYPE] = type
             prefs[Keys.CONTRACEPTION_REMINDER_TIME]    = time
-        }
-    }
-
-    suspend fun updateShowOvulation(show: Boolean) {
-        context.dataStore.edit { prefs ->
-            prefs[Keys.SHOW_OVULATION] = show
-        }
-    }
-
-    suspend fun updateShowFertileWindow(show: Boolean) {
-        context.dataStore.edit { prefs ->
-            prefs[Keys.SHOW_FERTILE_WINDOW] = show
         }
     }
 }

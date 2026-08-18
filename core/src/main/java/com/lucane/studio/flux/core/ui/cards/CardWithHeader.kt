@@ -1,6 +1,5 @@
 package com.lucane.studio.flux.core.ui.cards
 
-import android.sax.RootElement
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -23,13 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
-import com.lucane.studio.flux.core.ui.utils.HeaderInfos
-import com.lucane.studio.flux.core.utils.LocalHazeController
+import com.lucane.studio.flux.core.ui.model.HeaderInfos
+import com.lucane.studio.flux.core.providers.LocalHazeController
 
 
 @Composable
@@ -50,7 +49,7 @@ fun CardWithHeader(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(if (headerInfos.subLabelRes != null) 31.dp else 24.dp),
+                    .height(if (headerInfos.subLabel != null) 31.dp else 24.dp),
                 colors = ButtonDefaults.buttonColors(
                     contentColor = AsAColors.blueNeon,
                     containerColor = Color.Transparent,
@@ -79,11 +78,11 @@ fun CardWithHeader(
                             Spacer(Modifier.size(8.dp))
                         }
                         Column(
-                            modifier = Modifier.height(if(headerInfos.subLabelRes != null) 31.dp else 24.dp),
+                            modifier = Modifier.height(if(headerInfos.subLabel != null) 31.dp else 24.dp),
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = headerInfos.labelRes,
+                                text = stringResource(headerInfos.labelRes),
                                 style = TextStyle(
                                     fontFamily = AsAFont.semiBold,
                                     fontSize = 16.sp,
@@ -91,9 +90,9 @@ fun CardWithHeader(
                                 ),
                             )
 
-                            if(headerInfos.subLabelRes != null){
+                            if(headerInfos.subLabel != null){
                                 Text(
-                                    text = headerInfos.subLabelRes,
+                                    text = headerInfos.subLabel,
                                     style = TextStyle(
                                         fontFamily = AsAFont.regular,
                                         fontSize = 10.sp,
