@@ -318,10 +318,10 @@ class CalendarViewModel @Inject constructor(
             val prevHasPeriod = prevLog?.isPeriod == true
             val nextHasPeriod = nextLog?.isPeriod == true
 
-            // An explicitly declared flow intensity outside of a period (e.g.
-            // spotting) doesn't get the pill fill, so it needs the dot to stay
-            // visible on the calendar — same as any other declared symptom.
-            val hasIndependentFlow = log != null && !hasPeriod
+            // A declared flow intensity always counts as a declaration — same
+            // as any other declared symptom — whether or not the day already
+            // gets the period pill fill.
+            val hasDeclaredFlow = log != null
                     && log.flowIntensity != FlowIntensity.NONE
                     && log.flowIntensity != FlowIntensity.NOT_DECLARED
 
@@ -335,7 +335,7 @@ class CalendarViewModel @Inject constructor(
                 isPeriodEnd    = hasPeriod && !nextHasPeriod,
                 hasLog         = log != null,
                 hasDeclaration = log != null &&
-                        (log.symptoms.isNotEmpty() || log.painLevel != null || !log.notes.isNullOrBlank() || hasIndependentFlow),
+                        (log.symptoms.isNotEmpty() || log.painLevel != null || !log.notes.isNullOrBlank() || hasDeclaredFlow),
                 isOvulation    = date == ovulationDate,
                 isFertile      = fertileStart != null && fertileEnd != null
                         && !date.isBefore(fertileStart) && !date.isAfter(fertileEnd),

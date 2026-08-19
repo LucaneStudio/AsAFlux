@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,6 +46,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import com.lucane.studio.flux.core.R
+import com.lucane.studio.flux.core.ui.inputs.buttons.PrimaryIconButton
 import com.lucane.studio.flux.core.ui.inputs.toggles.CheckmarkToggle
 import com.lucane.studio.flux.core.ui.inputs.toggles.RadioLine
 import com.lucane.studio.flux.core.ui.inputs.toggles.RadioLineItemData
@@ -118,13 +120,14 @@ fun SymptomDeclarationCard(
                             buttonSize = ButtonSize.S,
                             onClick = onReset,
                         )
+
+                        PrimaryIconButton (
+                            icon = painterResource(CoreRes.drawable.ic_check),
+                            buttonSize = ButtonSize.S,
+                            enable = canValidate,
+                            onClick = onValidate,
+                        )
                     }
-                    PrimaryButton(
-                        label = stringResource(CoreRes.string.tracking_validate),
-                        buttonSize = ButtonSize.S,
-                        enable = canValidate,
-                        onClick = onValidate,
-                    )
                 }
             }
 

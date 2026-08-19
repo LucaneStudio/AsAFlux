@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.lucane.studio.flux.core.theme.AsAColors
 import com.lucane.studio.flux.core.theme.AsAFont
 import com.lucane.studio.flux.feature.calendar.presentation.CalendarDayUiState
@@ -50,9 +51,6 @@ fun TrackingDayCell(
     onClick: () -> Unit = {},
 ) {
     val isFilled = state.isPeriod || state.isNextPeriod
-
-    // Period and the next-period prediction share the same solid fill, so
-    // whichever of the two applies to this day drives its pill caps.
     val isFillStart = if (state.isPeriod) state.isPeriodStart else state.isNextPeriodStart
     val isFillEnd = if (state.isPeriod) state.isPeriodEnd else state.isNextPeriodEnd
 
@@ -71,6 +69,7 @@ fun TrackingDayCell(
     )
 
     val textColor = when {
+        !state.isCurrentMonth && state.isFertile -> AsAColors.purpleLightGray
         !state.isCurrentMonth -> AsAColors.purpleWhite
         isFilled -> Color.White
         else -> AsAColors.black
@@ -134,16 +133,17 @@ fun TrackingDayCell(
                     )
                 }
             }
+        }
 
-            if (state.hasDeclaration) {
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(4.dp)
-                        .size(6.dp)
-                        .background(color = AsAColors.lightBlueNeon, shape = CircleShape),
-                )
-            }
+        if (state.hasDeclaration) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .zIndex(1f)
+                    .padding(4.dp)
+                    .size(6.dp)
+                    .background(color = AsAColors.lightBlueNeon, shape = CircleShape),
+            )
         }
     }
 }

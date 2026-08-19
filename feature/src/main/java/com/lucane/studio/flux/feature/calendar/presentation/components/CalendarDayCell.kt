@@ -30,8 +30,8 @@ import com.lucane.studio.flux.feature.calendar.presentation.CalendarDayUiState
 // Hoisted out of composition: these are invariant and would otherwise be
 // reallocated for every one of the 35–42 cells on each recomposition.
 private val DayCellTextRegular = TextStyle(fontFamily = AsAFont.regular, fontSize = 16.sp)
-private val DayCellTextBold    = TextStyle(fontFamily = AsAFont.bold, fontSize = 16.sp)
-private val SelectedDayShape      = RoundedCornerShape(6.dp)
+private val DayCellTextBold = TextStyle(fontFamily = AsAFont.bold, fontSize = 16.sp)
+private val SelectedDayShape = RoundedCornerShape(6.dp)
 private val SelectedDayBackground = AsAColors.blueNeon.copy(0.2f)
 
 @Composable
